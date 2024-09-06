@@ -25,6 +25,12 @@ cursor.execute(
 #executar o codigo
 connection.commit()
 
+#registrar valores nas colunas das tabelas
+cursor.execute(f'INSERT INTO {TABLE_NAME} (id, name, weigth)'
+               'VALUES (NULL, "Mateus Gabriel", 9.9)'
+               )
+
+connection.commit()
 
 #fechar as conexões
 cursor.close(),
