@@ -1,6 +1,8 @@
 import sqlite3
 from pathlib import Path
 
+from numpy import insert
+
 ROOT_DIR = Path(__file__).parent
 DB_NAME = 'db.sqlite3'
 #arquivo a ser usado DB_FILE
@@ -34,10 +36,16 @@ cursor.execute(f'DELETE FROM sqlite_sequence WHERE name="{TABLE_NAME}"')
 
 connection.commit()
 
-#registrar valores nas colunas das tabelas
-cursor.execute(f'INSERT INTO {TABLE_NAME} (id, name, weigth)'
-               'VALUES ( NULL, "Lucenia", 10), (NULL, "Silvia", 9.9)'
+#registrar valores nas colunas das tabelas / modo correto
+#prevenindo sql inject
+
+insert_into = (f'INSERT INTO {TABLE_NAME} (name, weigth)'
+               'VALUES (?, ?)'
                ) 
+#execute para passar um valor e 
+cursor.execute(insert_into,['Joana', 4])
+#executemany para passar varios valores!
+cursor.executemany(insert_into,[['Joana', 4], ['Mateus', 10], ['Lucenia', 8]])
 
 connection.commit()
 
