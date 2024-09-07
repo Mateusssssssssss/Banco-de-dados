@@ -25,10 +25,19 @@ cursor.execute(
 #executar o codigo
 connection.commit()
 
+#fazendo delete sem where
+cursor.execute(
+    f'DELETE FROM {TABLE_NAME}'
+)
+
+cursor.execute(f'DELETE FROM sqlite_sequence WHERE name="{TABLE_NAME}"')
+
+connection.commit()
+
 #registrar valores nas colunas das tabelas
 cursor.execute(f'INSERT INTO {TABLE_NAME} (id, name, weigth)'
-               'VALUES (NULL, "Mateus Gabriel", 9.9)'
-               )
+               'VALUES ( NULL, "Lucenia", 10), (NULL, "Silvia", 9.9)'
+               ) 
 
 connection.commit()
 
