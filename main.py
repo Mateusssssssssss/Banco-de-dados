@@ -27,11 +27,15 @@ cursor.execute(
 #executar o codigo
 connection.commit()
 
+# CRUD = CREATE READ UPDATE DELETE
+# SQL = INSERT  SELECT  UPDATE DELETE
+
+
 #fazendo delete sem where
 cursor.execute(
     f'DELETE FROM {TABLE_NAME}'
 )
-
+#DELETE com WHERE
 cursor.execute(f'DELETE FROM sqlite_sequence WHERE name="{TABLE_NAME}"')
 
 connection.commit()
@@ -43,11 +47,16 @@ insert_into = (f'INSERT INTO {TABLE_NAME} (name, weigth)'
                'VALUES (?, ?)'
                ) 
 #execute para passar um valor e 
-cursor.execute(insert_into,['Joana', 4])
+cursor.execute(insert_into,['Carla', 4])
 #executemany para passar varios valores!
 cursor.executemany(insert_into,[['Joana', 4], ['Mateus', 10], ['Lucenia', 8]])
-
+ 
+ #UPDATE
+cursor.execute(f'UPDATE {TABLE_NAME} '
+               'SET name="Rozenilda", weigth= 65 '
+               'WHERE name = "Mateus"')
 connection.commit()
+print(insert_into)
 
 #fechar as conexões
 cursor.close(),
